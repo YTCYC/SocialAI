@@ -1,0 +1,10 @@
+{
+    "go.useLanguageServer": true,
+  "gopls": {
+    "ui.completion.usePlaceholders": true,
+    "ui.completion.experimentalPostfixCompletions": true,
+    "ui.diagnostic.staticcheck": true,
+    "ui.completion.snippets": true,
+    "ui.completion.imports": true
+  }
+}
