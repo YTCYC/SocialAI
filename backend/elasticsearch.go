@@ -90,3 +90,26 @@ func InitElasticsearchBackend() {
 
 	ESBackend = &ElasticsearchBackend{client: client}
 }
+
+// read data from elastic search: user and post info
+func (backend *ElasticsearchBackend) ReadFromES(query elastic.Query, index string) (*elastic.SearchResult, error) {
+	searchResult, err := backend.client.Search().
+		Index(index).
+		Query(query).
+		Pretty(true).
+		Do(context.Background())
+	if err != nil {
+		return nil, fmt.Errorf("failed to read data from elasticsearch: %w", err)
+	}
+
+	return searchResult, nil
+}
+
+func (backend *ElasticsearchBackend) SaveToES(i interface{}, index string, id string) error {
+	_, err := backend.client.Index().
+		Index(index).
+		Id(id).
+		BodyJson(i).
+		Do(context.Background())
+	return fmt.Errorf("failed to save data into elasticsearch: %w", err)
+}
