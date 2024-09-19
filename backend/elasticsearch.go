@@ -105,6 +105,7 @@ func (backend *ElasticsearchBackend) ReadFromES(query elastic.Query, index strin
 	return searchResult, nil
 }
 
+// save data into es
 func (backend *ElasticsearchBackend) SaveToES(i interface{}, index string, id string) error {
 	_, err := backend.client.Index().
 		Index(index).
@@ -112,4 +113,15 @@ func (backend *ElasticsearchBackend) SaveToES(i interface{}, index string, id st
 		BodyJson(i).
 		Do(context.Background())
 	return fmt.Errorf("failed to save data into elasticsearch: %w", err)
+}
+
+// delete data from es
+func (backend *ElasticsearchBackend) DeleteFromES(query elastic.Query, index string) error {
+	_, err := backend.client.DeleteByQuery().
+		Index(index).
+		Query(query).
+		Pretty(true).
+		Do(context.Background())
+
+	return err
 }

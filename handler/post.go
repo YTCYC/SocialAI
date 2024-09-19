@@ -9,7 +9,9 @@ import (
 	"SocialAI/model"
 	"SocialAI/service"
 
+	jwt "github.com/form3tech-oss/jwt-go"
 	"github.com/google/uuid"
+	"github.com/gorilla/mux"
 )
 
 // literal map for different media types
@@ -31,10 +33,16 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	// Parse from body of request to get a json object.
 	fmt.Println("Received one upload request")
 
+	// generate token, use username inside of token
+	token := r.Context().Value("user")
+	claims := token.(*jwt.Token).Claims
+	username := claims.(jwt.MapClaims)["username"]
+
 	// create an instance of a post
 	post := model.Post{
-		Id:      uuid.New().String(),
-		User:    r.FormValue("user"),
+		Id: uuid.New().String(),
+		// User:    r.FormValue("user"),
+		User:    username.(string),
 		Message: r.FormValue("message"),
 	}
 
@@ -114,4 +122,21 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Write(js)
+}
+
+// delete post
+func deleteHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Received one request for delete")
+
+	user := r.Context().Value("user")
+	claims := user.(*jwt.Token).Claims
+	username := claims.(jwt.MapClaims)["username"].(string)
+	id := mux.Vars(r)["id"]
+
+	if err := service.DeletePost(id, username); err != nil {
+		http.Error(w, "Failed to delete post from backend", http.StatusInternalServerError)
+		fmt.Printf("Failed to delete post from backend %v\n", err)
+		return
+	}
+	fmt.Println("Post is deleted successfully")
 }

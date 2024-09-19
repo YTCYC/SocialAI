@@ -2,7 +2,6 @@ package service
 
 import (
 	"fmt"
-	"log"
 	"mime/multipart"
 	"reflect"
 
@@ -17,7 +16,7 @@ func SearchPostsByUser(user string) ([]model.Post, error) {
 	query := elastic.NewTermQuery("user", user)
 	searchResult, err := backend.ESBackend.ReadFromES(query, constants.POST_INDEX)
 	if err != nil {
-		log.Fatalf("Error read data (user) from elasticsearch: %v", err)
+		// log.Fatalf("Error read data (user) from elasticsearch: %v", err)
 		return nil, err
 	}
 	return getPostFromSearchResult(searchResult), nil
@@ -32,7 +31,7 @@ func SearchPostsByKeywords(keywords string) ([]model.Post, error) {
 	}
 	searchResult, err := backend.ESBackend.ReadFromES(query, constants.POST_INDEX)
 	if err != nil {
-		log.Fatalf("Error read data (keyword) from elasticsearch: %v", err)
+		// log.Fatalf("Error read data (keyword) from elasticsearch: %v", err)
 		return nil, err
 	}
 	return getPostFromSearchResult(searchResult), nil
@@ -61,4 +60,13 @@ func SavePost(post *model.Post, file multipart.File) error {
 
 	// save post and medialink into elasticsearch
 	return backend.ESBackend.SaveToES(post, constants.POST_INDEX, post.Id)
+}
+
+// dete data from ES based on user and post id
+func DeletePost(id string, user string) error {
+	query := elastic.NewBoolQuery()
+	query.Must(elastic.NewTermQuery("id", id))
+	query.Must(elastic.NewTermQuery("user", user))
+
+	return backend.ESBackend.DeleteFromES(query, constants.POST_INDEX)
 }
