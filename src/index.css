@@ -1,13 +1,29 @@
+/* create react app under the hood logic,  */
+@import "~antd/dist/antd.css";
+/* need to import the style we created to here otherwise the css files we created will not work */
+@import "./styles/TopBar.css";
+@import "./styles/Main.css";
+@import "./styles/Login.css";
+@import "./styles/Register.css";
+@import "./styles/Home.css";
+@import "./styles/SearchBar.css";
+
+.ReactGridGallery_custom-overlay {
+  pointer-events: auto !important;
+}
+/* ! above means override others, very important */
+/* code above means when pointer is above something, it's get clicked */
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }

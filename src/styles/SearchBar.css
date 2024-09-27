@@ -1,0 +1,17 @@
+.search-bar {
+    max-width: 900px;
+    width: 50%;
+    margin: 0 auto;
+ }
+ 
+ .search-type-group {
+    margin-top: 6px;
+ }
+ 
+ .error-msg {
+    height: 22px;
+    color: #d54dff;
+    margin: 0;
+ }
+ 
+ 
