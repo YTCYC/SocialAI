@@ -23,7 +23,7 @@ import axios from "axios";
 import { message } from "antd";
 import { CircularProgress } from "@mui/material";
 
-import { DallEOpenAIKey } from "../constants";
+// import { DallEOpenAIKey } from "../constants";
 
 const Overlay = styled.div`
   position: fixed;
@@ -58,7 +58,7 @@ export default function Landing() {
   const [slicedPhotos, setSlicedPhotos] = useState();
 
   const openai = new OpenAI({
-    apiKey: DallEOpenAIKey,
+    apiKey: process.env.DallEOpenAIKey,
     dangerouslyAllowBrowser: true,
   });
 
