@@ -1,5 +1,6 @@
 /* create react app under the hood logic,  */
 @import "~antd/dist/antd.css";
+@import "yet-another-react-lightbox/styles.css";
 /* need to import the style we created to here otherwise the css files we created will not work */
 @import "./styles/TopBar.css";
 @import "./styles/Main.css";
@@ -7,6 +8,7 @@
 @import "./styles/Register.css";
 @import "./styles/Home.css";
 @import "./styles/SearchBar.css";
+@import "./styles/Collection.css";
 
 .ReactGridGallery_custom-overlay {
   pointer-events: auto !important;

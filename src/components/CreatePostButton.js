@@ -1,5 +1,5 @@
 
-import React, { Component, createRef } from "react";
+import React, { Component } from "react";
 import { Modal, Button, message } from "antd";
 import axios from "axios";
 
@@ -64,6 +64,7 @@ class CreatePostButton extends Component { // class component
                message.success("Hooray! The image/video is uploaded successfully!");
                // add things we want to do when it's successful
                this.postForm.resetFields();
+               this.handleCancel();
             //    this.handleCancel(); // this cancles form window 
             // not good in my mind because what if user wants to upload multi posts
                this.props.onShowPost(postType);

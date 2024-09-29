@@ -3,6 +3,17 @@ import PropTypes from "prop-types";
 import { Button, message, Modal } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
+
+import PhotoAlbum from "react-photo-album";
+import Lightbox from "yet-another-react-lightbox";
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
+import Slideshow from "yet-another-react-lightbox/plugins/slideshow";
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+
 import { Gallery } from "react-grid-gallery";
 import { BASE_URL, TOKEN_KEY } from "../constants";
 
@@ -28,12 +39,16 @@ const wrapperStyle = {
 
 function PhotoGallery(props) {
   const [images, setImages] = useState(props.images);
+  const [index, setIndex] = useState(-1);
 
   const imageArr = images.map((image) => {
     // let ownedThisPost = false;
 
     return {
       ...image, // spread
+      width: 200,
+      height: 200,
+
       customOverlay: (
         <div style={captionStyle}>
           <div
@@ -49,7 +64,7 @@ function PhotoGallery(props) {
               size="small"
               onClick={() => onDeleteImage(image.postId)}
             >
-              Delete
+              Delete image
             </Button>
           {/* )} */}
         </div>
@@ -91,15 +106,57 @@ function PhotoGallery(props) {
     setImages(props.images);
   }, [props.images]);
 
+  const updateIndex = ({ index }) => {
+    setIndex(index);
+  };
+
+  // return (
+  //   <div style={wrapperStyle}>
+  //     <Gallery
+  //       images={imageArr}
+  //       enableImageSelection={false}
+  //       backdropClosesModal={true}
+  //     />
+  //   </div>
+  // );
   return (
     <div style={wrapperStyle}>
-      <Gallery
-        images={imageArr}
-        enableImageSelection={false}
-        backdropClosesModal={true}
+      <PhotoAlbum
+        photos={imageArr}
+        layout="rows"
+        targetRowHeight={200}
+        onClick={({ index }) => setIndex(index)}
+      />
+      <Lightbox
+        slides={imageArr}
+        open={index >= 0}
+        index={index}
+        close={() => setIndex(-1)}
+        // enable optional lightbox plugins
+        plugins={[Fullscreen, Slideshow, Thumbnails, Zoom]}
+        on={{
+          view: updateIndex,
+        }}
+        toolbar={{
+          buttons: [
+            <IconButton
+              key="upload"
+              type="button"
+              sx={{ p: "10px" }}
+              aria-label="search"
+              onClick={() => {
+                onDeleteImage(imageArr[index].postId);
+              }}
+            >
+              <DeleteIcon sx={{ color: "#CCCCCC" }} />
+            </IconButton>,
+          ],
+        }}
       />
     </div>
   );
+
+
 }
 
 // if typescript has different type, if propTyeps is different, error will occur

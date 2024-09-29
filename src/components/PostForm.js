@@ -13,7 +13,7 @@ export const PostForm = forwardRef((props, formRef) => {
    if (Array.isArray(e)) { // this checks if an object is an array, js func
      return e;
    }
-   return e && e.fileList; // this checks if e exists and then return e and its fileList, which is a list
+   return e?.fileList; // this checks if e exists and then return e and its fileList, which is a list
  };
  return (
    <Form name="validate_other" {...formItemLayout} ref={formRef}>
@@ -27,7 +27,7 @@ export const PostForm = forwardRef((props, formRef) => {
          }
        ]}
      >
-       <Input placeholder="Type what you want to share with the World!"/>
+       <Input placeholder="Hey what's in your mind?"/>
      </Form.Item>
      <Form.Item label="Dragger">
        <Form.Item
@@ -38,7 +38,7 @@ export const PostForm = forwardRef((props, formRef) => {
          rules={[
            {
              required: true,
-             message: "Please select an image/video!"
+             message: "upload an image or a video that you want to share!"
            }
          ]}
        >
