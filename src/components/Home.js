@@ -76,7 +76,7 @@ function Home(props) {
     }
     if (type === "image") {
       const imageArr = posts
-      // filter returns item that meets the requirement
+        // filter returns item that meets the requirement
         .filter((item) => item.type === "image")
         // .map iterates each element and do something
         .map((image) => {
@@ -116,17 +116,17 @@ function Home(props) {
   const showPost = (type) => {
     console.log("type -> ", type);
     setActiveTab(type);
- 
+
     setTimeout(() => { // set timer to refresh and load in posts just uploaded
       setSearchOption({ type: SEARCH_KEY.all, keyword: "" });
     }, 1000);
   };
- 
+
   const operations = <CreatePostButton onShowPost={showPost} />;
- 
+
   return (
     <div className="home">
-      <SearchBar handleSearch={handleSearch}/>
+      <SearchBar handleSearch={handleSearch} />
       <div className="display">
         <Tabs
           onChange={(key) => setActiveTab(key)}

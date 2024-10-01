@@ -99,40 +99,40 @@ function Collection(props) {
             </Col>
           ))}
         </Row>
- );
-}
-};
+      );
+    }
+  };
 
-const showPost = (type) => {
-console.log("type", type);
-setActiveTab(type);
-setTimeout(() => {
-  setSearchOption({ type: SEARCH_KEY.all, keyword: "" });
-}, 3000);
-};
+  const showPost = (type) => {
+    console.log("type", type);
+    setActiveTab(type);
+    setTimeout(() => {
+      setSearchOption({ type: SEARCH_KEY.all, keyword: "" });
+    }, 3000);
+  };
 
-const operations = <CreatePostButton onShowPost={showPost} />;
+  const operations = <CreatePostButton onShowPost={showPost} />;
 
-return (
-<div className="home">
-  <SearchBar handleSearch={handleSearch} />
-  <div className="display">
-    <Tabs
-      onChange={(key) => setActiveTab(key)}
-      defaultActiveKey="image"
-      activeKey={activeTab}
-      tabBarExtraContent={operations}
-    >
-      <TabPane tab="Images" key="image">
-        {renderPosts("image")}
-      </TabPane>
-      <TabPane tab="Videos" key="video">
-        {renderPosts("video")}
-      </TabPane>
-    </Tabs>
-  </div>
-</div>
-);
+  return (
+    <div className="home">
+      <SearchBar handleSearch={handleSearch} />
+      <div className="display">
+        <Tabs
+          onChange={(key) => setActiveTab(key)}
+          defaultActiveKey="image"
+          activeKey={activeTab}
+          tabBarExtraContent={operations}
+        >
+          <TabPane tab="Images" key="image">
+            {renderPosts("image")}
+          </TabPane>
+          <TabPane tab="Videos" key="video">
+            {renderPosts("video")}
+          </TabPane>
+        </Tabs>
+      </div>
+    </div>
+  );
 
 }
 

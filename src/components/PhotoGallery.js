@@ -56,16 +56,16 @@ function PhotoGallery(props) {
             onClick={() => console.log("test")}
           >{`${image.user}: ${image.caption}`}</div>
           {/* {ownedThisPost && ( */}
-            <Button
-              style={{ marginTop: "1px", marginLeft: "20%" }}
-              key="deleteImage"
-              type="primary"
-              icon={<DeleteOutlined />}
-              size="small"
-              onClick={() => onDeleteImage(image.postId)}
-            >
-              Delete image
-            </Button>
+          <Button
+            style={{ marginTop: "1px", marginLeft: "20%" }}
+            key="deleteImage"
+            type="primary"
+            icon={<DeleteOutlined />}
+            size="small"
+            onClick={() => onDeleteImage(image.postId)}
+          >
+            Delete image
+          </Button>
           {/* )} */}
         </div>
       ),

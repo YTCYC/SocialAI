@@ -6,7 +6,7 @@ import Main from "./Main";
 import { TOKEN_KEY } from "../constants"; // {} is used here because not default
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(
+  const [isLoggedIn, setIsLoggedIn] = useState( () =>
     // useState returns a stateful value and a function to update it
     localStorage.getItem(TOKEN_KEY) ? true : false // this ensures when close out the tab and open a new one, i am still logged in
     // localStorage is a property of webpage, can only store String type 
